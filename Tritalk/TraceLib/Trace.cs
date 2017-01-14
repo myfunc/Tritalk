@@ -11,6 +11,6 @@ namespace Tritalk.Libs
     {
         public string ID { get; set; }
         public string Method { get; set; }
-        public string properties { get; set; }
+        public string Properties { get; set; }
     }
 }
