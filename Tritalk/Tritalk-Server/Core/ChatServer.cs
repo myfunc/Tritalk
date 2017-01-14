@@ -62,10 +62,16 @@ namespace Tritalk.Core
 
         }
 
-        private void ProcedureReceive(object receive)
+        private Trace ProcedureReceive(object receive)
         {
             if (!(receive is Trace)) throw new InvalidReceiveObjectException(receive);
             Trace trace_receive = receive as Trace;
+            return HandleTrace(trace_receive);
+        }
+
+        private Trace HandleTrace(Trace trace)
+        {
+            return new Trace() { Method = "Answer" };
         }
     }
 }
