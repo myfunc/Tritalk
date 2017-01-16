@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tritalk.Core;
 
 namespace Tritalk.Server
 {
@@ -20,9 +21,25 @@ namespace Tritalk.Server
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ChatServer server;
+
         public MainWindow()
         {
             InitializeComponent();
+            server = new ChatServer(8080);
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            server.StartListener();
+        }
+
+        public void AcceptClientHandler(object sender, AcceptDataEventArgs args)
+        {
+            txtLog.Text += Environment.NewLine;
+            txtLog.Text += string.Format("Trace:\nID: {0}\nMethod: {1}\n Properties: {2}\n FromIP: {3}",
+                args.Trace.ID, args.Trace.Method, args.Trace.Properties, args.Client.RemoteEndPoint.ToString());
         }
     }
 }

@@ -8,7 +8,10 @@
         Title="MainWindow" Height="350" Width="350"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Height="50">
+            <Button Click="Button_Click">Start server</Button>
+        </Grid>
+        <TextBlock Name="txtLog"></TextBlock>
+    </DockPanel>
 </Window>
