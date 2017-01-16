@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tritalk.Core
 {
+    [Serializable]
     class InvalidReceiveObjectException : Exception
     {
         private object m_wrong_obj;
