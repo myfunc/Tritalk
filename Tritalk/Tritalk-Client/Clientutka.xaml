@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tritalk_Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Clientutututka" Height="350" Width="525">
+    <Grid x:Name="gridClientutka" Loaded="MakeAutorisationAlone">
+        <Button x:Name="btnSendMessage" Content="Send" HorizontalAlignment="Left" Margin="299,275,0,0" VerticalAlignment="Top" Width="75" Click="SendMessage" />
+        <TextBox x:Name="tbLogin" HorizontalAlignment="Left" Height="23" Margin="75,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="pbPassword" HorizontalAlignment="Left" Margin="75,97,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lbLogin" Content="Login" HorizontalAlignment="Left" Margin="8,65,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPassword" Content="Password" HorizontalAlignment="Left" Margin="8,91,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAutorization" Content="Autorization" HorizontalAlignment="Left" Margin="39,10,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontSize="20"/>
+        <Button x:Name="btnIn" Content="Go" HorizontalAlignment="Left" Margin="120,133,0,0" VerticalAlignment="Top" Width="75" Click="GetAutorization"  />
+        <Label x:Name="lbName" Content="UserName" HorizontalAlignment="Left" Margin="399,14,0,0" VerticalAlignment="Top" Width="81"/>
+        <TextBox x:Name="tbCreaterMessages" HorizontalAlignment="Left" Height="23" Margin="75,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBlock x:Name="tBlockMessages" HorizontalAlignment="Left" Margin="75,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="256" Width="299" Background="Black" Foreground="#FF00AE02" Text="Some Text"/>
+        <Label x:Name="lbFaq" Content="&lt;--История переписки" HorizontalAlignment="Left" Margin="382,244,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lbFriends" HorizontalAlignment="Left" Height="148" Margin="405,91,0,0" VerticalAlignment="Top" Width="94"/>
+        <Label x:Name="lbFaqFriends" Content="ТвоиДрузья" HorizontalAlignment="Left" Margin="405,60,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
