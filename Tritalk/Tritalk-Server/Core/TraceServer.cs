@@ -110,8 +110,6 @@ namespace Tritalk.Core
         {
             Socket client = m_listener.Accept();
 
-            MemoryStream mem_receive = new MemoryStream(BUFFER_SIZE);
-            client.Receive(mem_receive.GetBuffer());
             try
             {
                 /* Мой способ
@@ -119,11 +117,11 @@ namespace Tritalk.Core
                 Trace answer = ProcedureReceive(receive_obj);
                 */
                 // Для Влада
-                string vstr = Encoding.ASCII.GetString(mem_receive.GetBuffer());
+                byte[] answer_byte = ReceiveClient(client);
+                string vstr = Encoding.UTF8.GetString(answer_byte);
                 Trace answer = VladParse(vstr);
-
                 
-                AnswerClient(client, answer);
+                AnswerClient(client, HandleTrace(answer));
                 OnAcceptClient(client, answer);
             }
             catch (Exception e)
@@ -133,13 +131,26 @@ namespace Tritalk.Core
             
         }
 
+        private byte[] ReceiveClient(Socket client)
+        {
+            // Мудреный метод, упростить.
+            MemoryStream mem_receive = new MemoryStream(BUFFER_SIZE);
+            int rec_bytes = client.Receive(mem_receive.GetBuffer());
+            byte[] rec_seeked = new byte[rec_bytes];
+            for (int i = 0; i < rec_seeked.Length; i++)
+            {
+                rec_seeked[i] = mem_receive.GetBuffer()[i];
+            }
+            return rec_seeked;
+        }
+
         private void AnswerClient(Socket client, Trace trace)
         {
             MemoryStream mem_answer = new MemoryStream(BUFFER_SIZE);
             // Мой способ - m_serializer.Serialize(mem_answer, trace);
             // Для Влада
             string answer = string.Format("{0},{1},{2}", trace.ID, trace.Method, trace.Properties);
-            byte[] b_answer = Encoding.ASCII.GetBytes(answer);
+            byte[] b_answer = Encoding.UTF8.GetBytes(answer);
             client.Send(b_answer);
         }
 
@@ -165,7 +176,7 @@ namespace Tritalk.Core
         private void AnswerError(Socket client)
         {
             string er = "Error";
-            client.Send(Encoding.ASCII.GetBytes(er));
+            client.Send(Encoding.UTF8.GetBytes(er));
         }
     }
 }

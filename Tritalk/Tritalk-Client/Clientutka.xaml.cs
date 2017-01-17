@@ -27,6 +27,11 @@ namespace Tritalk_Client
         string MyName;
         string MyId;
 
+        const int port = 7770;
+        const string iphost = "127.0.0.1";
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -85,9 +90,9 @@ namespace Tritalk_Client
             try
             {
                 User.ID = "User";
-                User.Method = "Autorization";
+                User.Method = "Authorization";
                 User.Properties = GetPropFromloginAndPassword();
-                SendMessageFromSocket(11000, User);
+                SendMessageFromSocket(port, User);
             }
             catch (Exception ex)
             {
@@ -103,7 +108,7 @@ namespace Tritalk_Client
                 User.Method = "SendMessage";
                 User.Properties = tbCreaterMessages.Text;
                 tBlockMessages.Text += "\n" + MyName + ": " + tbCreaterMessages.Text;
-                SendMessageFromSocket(11000, User);
+                SendMessageFromSocket(port, User);
             }
             catch (Exception ex)
             {
@@ -119,12 +124,11 @@ namespace Tritalk_Client
             // Соединяемся с удаленным устройством
 
             // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPHostEntry ipHost = Dns.GetHostEntry(iphost);
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
             // Соединяем сокет с удаленной точкой
             sender.Connect(ipEndPoint);
 
@@ -135,7 +139,7 @@ namespace Tritalk_Client
             //Че мы вааще хотим
             switch (trace.Method)
             {
-                case "Autorization"://AutorizationProverka
+                case "Authorization"://AutorizationProverka
 
 
                     message = MakeLineTrace(trace);
