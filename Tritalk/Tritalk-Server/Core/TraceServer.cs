@@ -17,18 +17,22 @@ namespace Tritalk.Core
      Сервер обрабатывающий Trace-пакеты.
      Конструктор принимает порт и объект обработчика запросов
      */
-    class ChatServer
+    class TraceServer
     {
         BinaryFormatter m_serializer;
         CancellationToken m_cancel_token; // TODO: Добавить возможность остановки сервера
         // Слушатель сервера
         private Socket m_listener;
         // Максимальный размер входящего пакета данных
-        private const int BUFFER_SIZE = 1024 * 16;
+        private const int BUFFER_SIZE = 1024 * 1;
+
+        ITraceHandler i_trace_handler;
+
         public event EventHandler<AcceptDataEventArgs> AcceptedClient;
 
-        public ChatServer(int port)
+        public TraceServer(int port, ITraceHandler traceHandler)
         {
+            i_trace_handler = traceHandler;
             InitFields();
             InitListener(port);
         }
@@ -71,10 +75,6 @@ namespace Tritalk.Core
             {
                 MessageBox.Show(e.Message,e.Source);
             }
-            finally
-            {
-                m_listener.Dispose();
-            }
         }
 
         private Task ListenAndProcedureClientsAsync()
@@ -82,6 +82,7 @@ namespace Tritalk.Core
             Task listen_task = Task.Factory.StartNew(
                 () =>
                 {
+                    m_listener.Listen(100);
                     while (true)
                     {
                         AcceptAndProcedureAndAnswerClient();
@@ -91,30 +92,60 @@ namespace Tritalk.Core
             return listen_task;
         }
 
+        private Trace VladParse(string traceStr)
+        {
+            string[] result;
+            result = traceStr.Split(',');
+            Trace trace = new Trace();
+
+            trace.ID = result[0];
+            trace.Method = result[1];
+            trace.Properties = result[2];
+
+            return trace;
+        }
+
         // Ожидает клиента, затем считывает Trace-пакет данных, обрабатывает и возвращает ответ.
         private void AcceptAndProcedureAndAnswerClient()
         {
             Socket client = m_listener.Accept();
 
-            MemoryStream mem_receive = new MemoryStream();
+            MemoryStream mem_receive = new MemoryStream(BUFFER_SIZE);
             client.Receive(mem_receive.GetBuffer());
+            try
+            {
+                /* Мой способ
+                object receive_obj = m_serializer.Deserialize(mem_receive);
+                Trace answer = ProcedureReceive(receive_obj);
+                */
+                // Для Влада
+                string vstr = Encoding.ASCII.GetString(mem_receive.GetBuffer());
+                Trace answer = VladParse(vstr);
 
-            object receive_obj = m_serializer.Deserialize(mem_receive);
-            Trace answer = ProcedureReceive(receive_obj);
-            AnswerClient(client, answer);
-            OnAcceptClient(client, answer);
+                
+                AnswerClient(client, answer);
+                OnAcceptClient(client, answer);
+            }
+            catch (Exception e)
+            {
+                AnswerError(client);
+            }
+            
         }
 
         private void AnswerClient(Socket client, Trace trace)
         {
-            MemoryStream mem_answer = new MemoryStream();
-            m_serializer.Serialize(mem_answer, trace);
-            client.Send(mem_answer.GetBuffer());
+            MemoryStream mem_answer = new MemoryStream(BUFFER_SIZE);
+            // Мой способ - m_serializer.Serialize(mem_answer, trace);
+            // Для Влада
+            string answer = string.Format("{0},{1},{2}", trace.ID, trace.Method, trace.Properties);
+            byte[] b_answer = Encoding.ASCII.GetBytes(answer);
+            client.Send(b_answer);
         }
 
         private void SendTraceToClient(Trace trace, Socket client)
         {
-            MemoryStream mem_answer = new MemoryStream();
+            MemoryStream mem_answer = new MemoryStream(BUFFER_SIZE);
             m_serializer.Serialize(mem_answer, trace);
             client.Send(mem_answer.GetBuffer());
         }
@@ -128,7 +159,13 @@ namespace Tritalk.Core
 
         private Trace HandleTrace(Trace trace)
         {
-            return new Trace() { Method = "Answer" }; // TODO: Заглушка обработки пакета с запросом.
+            return i_trace_handler.HandleTrace(trace);
+        }
+
+        private void AnswerError(Socket client)
+        {
+            string er = "Error";
+            client.Send(Encoding.ASCII.GetBytes(er));
         }
     }
 }

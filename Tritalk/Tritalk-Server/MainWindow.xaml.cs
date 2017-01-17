@@ -21,12 +21,16 @@ namespace Tritalk.Server
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ChatServer server;
+        private TraceServer server;
+        private ChatCore chat;
+        private ChatTraceHandler traceHandler;
 
         public MainWindow()
         {
             InitializeComponent();
-            server = new ChatServer(8080);
+            chat = new ChatCore();
+            traceHandler = new ChatTraceHandler(chat);
+            server = new TraceServer(7770, traceHandler);
             
         }
 

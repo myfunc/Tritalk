@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tritalk.Core
 {
-    class User
+    [Serializable]
+    public class User
     {
         public User()
         {
@@ -20,6 +21,5 @@ namespace Tritalk.Core
         public string Login { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-       // public DateTime LastOnline { get; set; }
     }
 }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,8 +66,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\AcceptData.cs" />
-    <Compile Include="Core\ChatServer.cs" />
+    <Compile Include="Core\ChatCore.cs" />
+    <Compile Include="Core\Message.cs" />
+    <Compile Include="Core\TraceServer.cs" />
+    <Compile Include="Core\ChatTraceHandler.cs" />
     <Compile Include="Core\InvalidReceiveObjectException.cs" />
+    <Compile Include="Core\ITraceHandler.cs" />
     <Compile Include="Core\User.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
