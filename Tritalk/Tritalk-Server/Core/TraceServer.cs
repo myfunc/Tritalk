@@ -19,9 +19,9 @@ namespace Tritalk.Core
      */
     class TraceServer
     {
-        BinaryFormatter m_serializer;
         CancellationToken m_cancel_token; // TODO: Добавить возможность остановки сервера
         // Слушатель сервера
+        private BinaryFormatter m_serializer = new BinaryFormatter();
         private Socket m_listener;
         // Максимальный размер входящего пакета данных
         private const int BUFFER_SIZE = 1024 * 1;
@@ -46,7 +46,6 @@ namespace Tritalk.Core
         // Инициализирует поля
         private void InitFields()
         {
-            m_serializer = new BinaryFormatter();
             m_cancel_token = CancellationToken.None;
         }
 
@@ -109,7 +108,7 @@ namespace Tritalk.Core
         private void AcceptAndProcedureAndAnswerClient()
         {
             Socket client = m_listener.Accept();
-
+            Trace answer = Trace.Empty;
             try
             {
                 /* Мой способ
@@ -119,14 +118,16 @@ namespace Tritalk.Core
                 // Для Влада
                 byte[] answer_byte = ReceiveClient(client);
                 string vstr = Encoding.UTF8.GetString(answer_byte);
-                Trace answer = VladParse(vstr);
-                
-                AnswerClient(client, HandleTrace(answer));
-                OnAcceptClient(client, answer);
+                answer = VladParse(vstr);
             }
             catch (Exception e)
             {
-                AnswerError(client);
+                answer = GetErrorTrace();
+            }
+            finally
+            {
+                AnswerClient(client, HandleTrace(answer));
+                OnAcceptClient(client, answer);
             }
             
         }
@@ -173,10 +174,9 @@ namespace Tritalk.Core
             return i_trace_handler.HandleTrace(trace);
         }
 
-        private void AnswerError(Socket client)
+        private Trace GetErrorTrace()
         {
-            string er = "Error";
-            client.Send(Encoding.UTF8.GetBytes(er));
+            return Trace.Empty;
         }
     }
 }

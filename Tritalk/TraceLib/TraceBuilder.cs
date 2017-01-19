@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Tritalk.Libs
 {
@@ -26,7 +24,7 @@ namespace Tritalk.Libs
                 MemoryStream mem = new MemoryStream(trace_bytes);
                 Trace trace = m_serializer.Deserialize(mem) as Trace;
                 return trace;
-            } catch (Exception e)
+            } catch 
             {
                 return Trace.Empty;
             }

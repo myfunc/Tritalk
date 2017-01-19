@@ -1,23 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Tritalk.Libs
 {
     [Serializable]
-    public class Trace
+    public class Trace : IComparable<Trace>
     {
         public string ID { get; set; }
         public string Method { get; set; }
-        public object Properties { get; set; }
+        public string Properties { get; set; }
 
         public static Trace Empty {
             get
             {
                 return new Trace() { ID = "", Method = "", Properties = "" };
             }
+        }
+
+        public int CompareTo(Trace obj)
+        {
+            if (ID != obj.ID) return -1;
+            if (Method != obj.Method) return -1;
+            if (Properties != obj.Properties) return -1;
+            return 0;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ID: {0}; Method: {1}; Properties: {2}", ID, Method, Properties);
         }
     }
 
