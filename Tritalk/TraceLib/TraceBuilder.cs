@@ -17,6 +17,7 @@ namespace Tritalk.Libs
             return mem.ToArray();
         }
 
+
         public static Trace Deserialize(byte[] trace_bytes)
         {
             try

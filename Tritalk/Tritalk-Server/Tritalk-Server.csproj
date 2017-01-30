@@ -65,14 +65,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\AcceptData.cs" />
     <Compile Include="Core\ChatCore.cs" />
     <Compile Include="Core\Message.cs" />
     <Compile Include="Core\TraceServer.cs" />
     <Compile Include="Core\ChatTraceHandler.cs" />
     <Compile Include="Core\InvalidReceiveObjectException.cs" />
     <Compile Include="Core\ITraceHandler.cs" />
-    <Compile Include="Core\User.cs" />
+    <Compile Include="Core\TraceTcpClientManager.cs" />
+    <Compile Include="Core\TraceTcpServer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

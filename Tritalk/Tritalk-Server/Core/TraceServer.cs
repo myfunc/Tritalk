@@ -99,7 +99,7 @@ namespace Tritalk.Core
 
             trace.ID = result[0];
             trace.Method = result[1];
-            trace.Properties = result[2];
+            trace.Parameters = result[2];
 
             return trace;
         }
@@ -150,7 +150,7 @@ namespace Tritalk.Core
             MemoryStream mem_answer = new MemoryStream(BUFFER_SIZE);
             // Мой способ - m_serializer.Serialize(mem_answer, trace);
             // Для Влада
-            string answer = string.Format("{0},{1},{2}", trace.ID, trace.Method, trace.Properties);
+            string answer = string.Format("{0},{1},{2}", trace.ID, trace.Method, trace.Parameters);
             byte[] b_answer = Encoding.UTF8.GetBytes(answer);
             client.Send(b_answer);
         }

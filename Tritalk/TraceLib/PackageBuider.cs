@@ -19,7 +19,7 @@ namespace Tritalk.Libs
             int package_size = bytes.Length;
             byte[] package = new byte[m_bytes_for_size + package_size];
             byte[] package_size_in_bytes = BitConverter.GetBytes(package_size);
-            Array.Reverse(package_size_in_bytes);
+            //Array.Reverse(package_size_in_bytes);
             for (int i = 0; i < m_bytes_for_size; i++)
             {
                 package[i] = package_size_in_bytes[i];

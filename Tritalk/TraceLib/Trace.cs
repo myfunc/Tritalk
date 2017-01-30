@@ -7,14 +7,30 @@ namespace Tritalk.Libs
     [Serializable]
     public class Trace : IComparable<Trace>
     {
-        public string ID { get; set; }
-        public string Method { get; set; }
-        public string Properties { get; set; }
+        private string id;
+        private string method;
+        private string parameters;
+
+        public string ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        public string Method
+        {
+            get { return method; }
+            set { method = value; }
+        }
+        public string Parameters
+        {
+            get { return parameters; }
+            set { parameters = value; }
+        }
 
         public static Trace Empty {
             get
             {
-                return new Trace() { ID = "", Method = "", Properties = "" };
+                return new Trace() { ID = "", Method = "", Parameters = "" };
             }
         }
 
@@ -22,13 +38,13 @@ namespace Tritalk.Libs
         {
             if (ID != obj.ID) return -1;
             if (Method != obj.Method) return -1;
-            if (Properties != obj.Properties) return -1;
+            if (Parameters != obj.Parameters) return -1;
             return 0;
         }
 
         public override string ToString()
         {
-            return string.Format("ID: {0}; Method: {1}; Properties: {2}", ID, Method, Properties);
+            return string.Format("ID: {0}; Method: {1}; Parameters: {2}", ID, Method, Parameters);
         }
     }
 
@@ -42,4 +58,4 @@ namespace Tritalk.Libs
 
 // var a = new Trace();
 // a.Method = "Authorization";
-// a.Properties = new TraceUserData() { Login = "Vlad", Password = "pass"};
+// a.Parameters = new TraceUserData() { Login = "Vlad", Password = "pass"};

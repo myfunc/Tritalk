@@ -21,7 +21,7 @@ namespace Tritalk.Server
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TraceServer server;
+        private TraceTcpServer server;
         private ChatCore chat;
         private ChatTraceHandler traceHandler;
 
@@ -30,7 +30,7 @@ namespace Tritalk.Server
             InitializeComponent();
             chat = new ChatCore();
             traceHandler = new ChatTraceHandler(chat);
-            server = new TraceServer(7770, traceHandler);
+            server = new TraceTcpServer(7770, traceHandler);
             
         }
 
@@ -39,11 +39,11 @@ namespace Tritalk.Server
             server.StartListener();
         }
 
-        public void AcceptClientHandler(object sender, AcceptDataEventArgs args)
+        public void AcceptClientHandler(object sender, AcceptTcpDataEventArgs args)
         {
             txtLog.Text += Environment.NewLine;
-            txtLog.Text += string.Format("Trace:\nID: {0}\nMethod: {1}\n Properties: {2}\n FromIP: {3}",
-                args.Trace.ID, args.Trace.Method, args.Trace.Properties, args.Client.RemoteEndPoint.ToString());
+            txtLog.Text += string.Format("Trace:\nID: {0}\nMethod: {1}\n Parameters: {2}\n FromIP: {3}",
+                args.Trace.ID, args.Trace.Method, args.Trace.Parameters, args.Client.Client.RemoteEndPoint.ToString());
         }
     }
 }

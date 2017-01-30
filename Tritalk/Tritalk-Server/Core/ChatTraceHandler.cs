@@ -31,7 +31,7 @@ namespace Tritalk.Core
         {
             get
             {
-                return new Trace() { Method = "Answer" , Properties = "Error"};
+                return new Trace() { Method = "Answer" , Parameters = "Error"};
             }
         }
         
@@ -44,25 +44,25 @@ namespace Tritalk.Core
 
         private Trace Registration(Trace trace)
         {
-            string[] result = trace.Properties.Split('*');//расшифровую логин и пароль 
+            string[] result = trace.Parameters.Split('*');//расшифровую логин и пароль 
 
             string login = result[0];//получаешь логин 
             string password = result[2];//получаешь пароль 
 
             User user = chatCore.Register(login, password, login);
             if (user == null) return Error;
-            return new Trace() { Method = "Answer", Properties = "Registration complite" };
+            return new Trace() { Method = "Answer", Parameters = "Registration complite" };
         }
 
         private Trace Authorization(Trace trace)
         {
-            string[] result = trace.Properties.Split('*');//расшифровую логин и пароль 
+            string[] result = trace.Parameters.Split('*');//расшифровую логин и пароль 
 
             string login = result[0];//получаешь логин 
             string password = result[2];//получаешь пароль 
 
             string id = chatCore.Login(login, password);
-            return new Trace() { Method = "Answer", Properties = id };
+            return new Trace() { Method = "Answer", Parameters = id };
         }
     }
 }

@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tritalk-Libs", "TraceLib\Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tritalk-Client", "Tritalk-Client\Tritalk-Client.csproj", "{0CACE00E-C53A-4C0D-A834-DE67E3110D68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{64B74966-C4E2-45B5-A2E9-04BBE57F2A28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpServerTest", "Testing\TcpServerTest.csproj", "{64B74966-C4E2-45B5-A2E9-04BBE57F2A28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tritalk-TcpClient", "Tritalk-TcpClient\Tritalk-TcpClient.csproj", "{2A72AB2F-83D7-4FA9-81D8-10055EF9766B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpClientTest", "ServerTest\TcpClientTest.csproj", "{C98FB29A-86BC-4D54-A7E7-026C4A38FD66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{64B74966-C4E2-45B5-A2E9-04BBE57F2A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B74966-C4E2-45B5-A2E9-04BBE57F2A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B74966-C4E2-45B5-A2E9-04BBE57F2A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A72AB2F-83D7-4FA9-81D8-10055EF9766B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A72AB2F-83D7-4FA9-81D8-10055EF9766B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A72AB2F-83D7-4FA9-81D8-10055EF9766B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A72AB2F-83D7-4FA9-81D8-10055EF9766B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98FB29A-86BC-4D54-A7E7-026C4A38FD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98FB29A-86BC-4D54-A7E7-026C4A38FD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98FB29A-86BC-4D54-A7E7-026C4A38FD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98FB29A-86BC-4D54-A7E7-026C4A38FD66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

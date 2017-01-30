@@ -91,7 +91,7 @@ namespace Tritalk_Client
             {
                 User.ID = "User";
                 User.Method = "Authorization";
-                User.Properties = GetPropFromloginAndPassword();
+                User.Parameters = GetPropFromloginAndPassword();
                 SendMessageFromSocket(port, User);
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace Tritalk_Client
             {
                 User.ID = MyId;
                 User.Method = "SendMessage";
-                User.Properties = tbCreaterMessages.Text;
+                User.Parameters = tbCreaterMessages.Text;
                 tBlockMessages.Text += "\n" + MyName + ": " + tbCreaterMessages.Text;
                 SendMessageFromSocket(port, User);
             }
@@ -181,7 +181,7 @@ namespace Tritalk_Client
             msg = new string[3];
             msg[0] = trace.ID;
             msg[1] = trace.Method;
-            msg[2] = trace.Properties;
+            msg[2] = trace.Parameters;
             return String.Join(",", msg);
         }
 
@@ -189,7 +189,7 @@ namespace Tritalk_Client
         {
             User.ID = Rep.ID;
             User.Method = Rep.Method;
-            User.Properties = User.Properties;
+            User.Parameters = User.Parameters;
             return User;
         }
         void SplitReplyAutorization(string rep)
@@ -200,8 +200,8 @@ namespace Tritalk_Client
 
             User.ID = result[0];
             User.Method = result[1];
-            User.Properties = result[2];
-            if (User.Properties == true.ToString())
+            User.Parameters = result[2];
+            if (User.Parameters == true.ToString())
             {
                 //Делаем приличный вид чатику
                 MaskerovkaOff();
@@ -210,7 +210,7 @@ namespace Tritalk_Client
                 MyName = User.Method;
                 lbName.Content = MyName;
             }
-            if (User.Properties == false.ToString())
+            if (User.Parameters == false.ToString())
             {
                 MessageBox.Show("Логин или пароль неверен", "Проверка На вшивость",
                            MessageBoxButton.OK,

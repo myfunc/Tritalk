@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tritalk_Server.Properties
+namespace Tritalk_Server.Parameters
 {
 
 

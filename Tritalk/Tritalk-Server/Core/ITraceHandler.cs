@@ -7,7 +7,7 @@ using Tritalk.Libs;
 
 namespace Tritalk.Core
 {
-    interface ITraceHandler
+    public interface ITraceHandler
     {
         Trace HandleTrace(Trace trace);
     }
