@@ -9,6 +9,7 @@ namespace Tritalk.Core
 {
     public interface ITraceHandler
     {
+        event EventHandler<DataRequestEventArgs> DataRequest;
         Trace HandleTrace(Trace trace);
     }
 }

@@ -12,6 +12,8 @@ namespace Tritalk.Testing
 {
     class TestTraceHandler : ITraceHandler
     {
+        public event EventHandler<DataRequestEventArgs> DataRequest;
+
         public Trace HandleTrace(Trace trace)
         {
             Console.WriteLine(trace);
@@ -24,7 +26,7 @@ namespace Tritalk.Testing
     {
         static Trace MakeTrace(string text)
         {
-            return new Trace() { ID = "0000", Method = "SendMessage", Parameters = text };
+            return new Trace() { Method = "SendMessage", Parameters = text };
         }
 
         static void Main(string[] args)

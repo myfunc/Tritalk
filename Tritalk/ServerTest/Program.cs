@@ -13,7 +13,7 @@ namespace ServerTest
     {
         static Trace MakeTrace(string text)
         {
-            return new Trace() { ID = "0000", Method = "SendMessage", Parameters = text };
+            return new Trace() { Method = "SendMessage", Parameters = text };
         }
 
         static void Main(string[] args)

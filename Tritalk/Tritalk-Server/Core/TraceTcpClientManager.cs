@@ -12,6 +12,7 @@ namespace Tritalk.Core
     {
         public TcpClient Client { get; set; }
         public Task ActiveTask { get; set; }
+        //public string id { get; set; }
     }
 
     class TraceTcpClientManager : ICollection<ActiveClient>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tritalk.Core;
+using Tritalk.Log;
 
 namespace Tritalk.Server
 {
@@ -23,27 +24,30 @@ namespace Tritalk.Server
     {
         private TraceTcpServer server;
         private ChatCore chat;
-        private ChatTraceHandler traceHandler;
+        private LogTraceHandler traceHandler;
 
         public MainWindow()
         {
             InitializeComponent();
             chat = new ChatCore();
-            traceHandler = new ChatTraceHandler(chat);
-            server = new TraceTcpServer(7770, traceHandler);
+            traceHandler = new LogTraceHandler(new ChatTraceHandler(chat));
+            traceHandler.Action += TraceHandler_Action;
+            server = new TraceTcpServer(Convert.ToInt32(txtPort.Text), traceHandler);
             
+        }
+
+        private void TraceHandler_Action(object sender, DataRequestEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                txtLog.Text += e.Data + Environment.NewLine;
+            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            btnStart.IsEnabled = false;
             server.StartListener();
-        }
-
-        public void AcceptClientHandler(object sender, AcceptTcpDataEventArgs args)
-        {
-            txtLog.Text += Environment.NewLine;
-            txtLog.Text += string.Format("Trace:\nID: {0}\nMethod: {1}\n Parameters: {2}\n FromIP: {3}",
-                args.Trace.ID, args.Trace.Method, args.Trace.Parameters, args.Client.Client.RemoteEndPoint.ToString());
         }
     }
 }

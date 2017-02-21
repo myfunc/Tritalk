@@ -21,7 +21,6 @@ namespace Tritalk.Libs
             string json = Encoding.Unicode.GetString(trace_bytes);
             return Deserialize(json);
         }
-
         public static string Serialize(Trace trace)
         {
             return JsonConvert.SerializeObject(trace);

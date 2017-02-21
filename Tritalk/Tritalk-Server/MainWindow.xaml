@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tritalk.Server"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="350"
-        WindowStyle="ToolWindow"
-        ResizeMode="NoResize">
+        Title="MainWindow" Height="350" Width="700"
+        WindowStyle="ToolWindow">
     <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <DockPanel>
+                <Label Width="50">Port:</Label>
+                <TextBox Name="txtPort">7770</TextBox>
+            </DockPanel>
+        </StackPanel>
         <Grid DockPanel.Dock="Top" Height="50">
-            <Button Click="Button_Click">Start server</Button>
+            <Button Name="btnStart" Click="Button_Click">Start server</Button>
         </Grid>
-        <TextBlock Name="txtLog"></TextBlock>
+        <TextBox AutoWordSelection="False" IsReadOnly="True" Name="txtLog" VerticalScrollBarVisibility="Visible"></TextBox>
     </DockPanel>
 </Window>

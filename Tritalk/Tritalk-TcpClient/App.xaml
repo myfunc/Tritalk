@@ -1,8 +1,9 @@
 ﻿<Application x:Class="Tritalk.Client.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Tritalk.Client">
-             <!--StartupUri="AuthWindow.xaml"--> 
+             xmlns:local="clr-namespace:Tritalk.Client"
+             StartupUri="ViewManager.xaml">
+             
     <Application.Resources>
          
     </Application.Resources>

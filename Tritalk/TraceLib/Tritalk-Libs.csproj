@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptData.cs" />
+    <Compile Include="ChatProtocolObjects\ProtocolObjects.cs" />
+    <Compile Include="TraceJsonAnswerBuilder.cs" />
     <Compile Include="PackageBuider.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

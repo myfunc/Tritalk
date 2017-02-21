@@ -33,6 +33,11 @@ namespace Tritalk.Core
             InitTcpServer(port);
         }
 
+        private void DataRequest(object sender, DataRequestEventArgs args)
+        {
+
+        }
+
         private void OnAcceptClient(TcpClient client, Trace trace)
         {
             EventHandler<AcceptTcpDataEventArgs> ev = Volatile.Read(ref AcceptedClient);
